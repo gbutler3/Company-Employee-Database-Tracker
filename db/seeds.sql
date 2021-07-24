@@ -1,5 +1,7 @@
+ -- Use the company_db -- 
 USE company_db;
 
+-- inserting department, role, and employee tables into the database company_db -- 
 INSERT INTO department (name)
 VALUES  ("Management"),
         ("Reception"),

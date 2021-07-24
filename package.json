@@ -1,0 +1,26 @@
+{
+  "name": "Week-12-HW",
+  "version": "1.0.0",
+  "description": "1. [Description](#description)\r 2. [Acceptance Criteria](#acceptance-criteria)\r 3. [WalkThrough](#walkthrough)\r 4. [License](#license)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbutler3/Company-Employee-Database-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbutler3/Company-Employee-Database-Tracker/issues"
+  },
+  "homepage": "https://github.com/gbutler3/Company-Employee-Database-Tracker#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
