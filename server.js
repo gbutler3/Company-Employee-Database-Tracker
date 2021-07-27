@@ -1,5 +1,4 @@
 const express = require('express');
-const mysql = require('mysql2');
 //MySQL connection
 const connection = require("./config/connection");
 const inquirer = require('inquirer');
@@ -23,7 +22,8 @@ function startprogram(){
       type: "list",
       name: "ViewChoice",
       message: "What would you like to do?",
-      choices: ["View All Departments", 
+      choices: [
+      "View All Departments", 
       "View All Roles", 
       "View all Employees", 
       "Add Department", 
@@ -36,8 +36,13 @@ function startprogram(){
   ]).then(choices => {
     switch (choices.ViewChoice){
       case "View All Departments":
+        console.log("Viewing all Departments:")
         allDepartments();
         break;
+      case "View All Roles":
+        console.log("Viewing all roles:")
+        allRoles();
+      break;
       case "View all Employees":
         allEmployees();
         break;
@@ -56,28 +61,52 @@ function startprogram(){
     }
   })
 };
-//This will be all departments so SELECT * FROM
+//This will be all departments so SELECT * FROM or SELECT id, name FROM department;
 function allDepartments(){
+  var query = `SELECT id, name FROM department`
+  connection.query(query, function(err, data){
+    if (err) throw err;
+    console.table(data)
+  })
+  startprogram();
+};
+
+function allRoles(){
+  var query = `SELECT id, title, salary FROM role;`;
+  connection.query(query,function(err,data){
+    if (err) throw err;
+    console.table(data)
+  })
+  startprogram();
 
 };
 
 function allEmployees(){
-
+  var query = `SELECT id, first_name, last_name FROM employee`;
+  connection.query(query, function(err, data){
+    if (err) throw err;
+    console.table(data)
+  })
+  startprogram();
 };
 
 function addDepartment(){
+  startprogram();
 
 };
 
 function addRole() {
+  startprogram();
 
 };
 
 function addEmployee(){
+  startprogram();
 
 };
 
 function updateEmployee(){
+  startprogram();
 
 };
 
