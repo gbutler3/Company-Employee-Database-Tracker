@@ -1,17 +1,9 @@
-const express = require('express');
+// const express = require('express');
 //MySQL connection
 const connection = require("./config/connection");
 const inquirer = require('inquirer');
 const mysql = require("mysql2");
 const consoletable = require("console.table");
-
-
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 const init = () => {
   startprogram()
@@ -68,29 +60,29 @@ function startprogram(){
 function allDepartments(){
   var query = `SELECT id, name FROM department;`
   connection.query(query, function(err, data){
-    if (err) throw err;
-    consoletable(data)
+    if (err) console.log(err);
+    console.table(data)
+    startprogram();
   })
-  startprogram();
 };
 
 function allRoles(){
   var query = `SELECT id, title, salary FROM role;`;
   connection.query(query,function(err,data){
     if (err) throw err;
-    consoletable(data)
+    console.table(data)
+    startprogram();
   })
-  startprogram();
-
 };
 
 function allEmployees(){
   var query = `SELECT id, first_name, last_name FROM employee`;
   connection.query(query, function(err, data){
     if (err) throw err;
-    consoletable(data)
+    console.table(data)
+    startprogram();
   })
-  startprogram();
+  
 };
 
 function addDepartment(){
@@ -112,14 +104,5 @@ function updateEmployee(){
   startprogram();
 
 };
-
-// Default response for any other request (Not Found)
-app.use((req, res) => {
-  res.status(404).end();
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 init();
