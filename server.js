@@ -2,6 +2,9 @@ const express = require('express');
 //MySQL connection
 const connection = require("./config/connection");
 const inquirer = require('inquirer');
+const mysql = require("mysql2");
+const consoletable = require("console.table");
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -63,10 +66,10 @@ function startprogram(){
 };
 //This will be all departments so SELECT * FROM or SELECT id, name FROM department;
 function allDepartments(){
-  var query = `SELECT id, name FROM department`
+  var query = `SELECT id, name FROM department;`
   connection.query(query, function(err, data){
     if (err) throw err;
-    console.table(data)
+    consoletable(data)
   })
   startprogram();
 };
@@ -75,7 +78,7 @@ function allRoles(){
   var query = `SELECT id, title, salary FROM role;`;
   connection.query(query,function(err,data){
     if (err) throw err;
-    console.table(data)
+    consoletable(data)
   })
   startprogram();
 
@@ -85,7 +88,7 @@ function allEmployees(){
   var query = `SELECT id, first_name, last_name FROM employee`;
   connection.query(query, function(err, data){
     if (err) throw err;
-    console.table(data)
+    consoletable(data)
   })
   startprogram();
 };

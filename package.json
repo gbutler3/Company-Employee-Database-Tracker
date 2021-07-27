@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "description": "1. [Description](#description)\r 2. [Acceptance Criteria](#acceptance-criteria)\r 3. [WalkThrough](#walkthrough)\r 4. [License](#license)",
   "main": "server.js",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "inquirer": "^8.1.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -17,12 +26,5 @@
   "bugs": {
     "url": "https://github.com/gbutler3/Company-Employee-Database-Tracker/issues"
   },
-  "homepage": "https://github.com/gbutler3/Company-Employee-Database-Tracker#readme",
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "inquirer": "^8.1.2",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.2.5"
-  }
+  "homepage": "https://github.com/gbutler3/Company-Employee-Database-Tracker#readme"
 }
