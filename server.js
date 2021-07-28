@@ -154,6 +154,19 @@ function addRole() {
 }
 
 function addEmployee(){
+var query = `SELECT id, title FROM role;`
+connection.query(query, function(err, data){
+  if (err) console.log(err);
+  var rolechoices = data.map(item => {
+    return {name: item.title,value: item.id}
+  })
+
+var query2 = `SELECT first_name, last_name FROM employee;`
+connection.query(query2, function(err,data){
+  if (err) console.log(err);
+  var mangchoices = data.map(item =>{
+    return {name: item.first_name,value: item.id}
+  })
   inquirer.prompt([
     {
       type: "input",
@@ -167,23 +180,22 @@ function addEmployee(){
     },
     {
       type: "list",
-      name: "department",
+      name: "role",
       message: "What is this employee's role?",
-      choices: ["1","2","3",], //!Research how to do this! pull the role title from the existing list on role table
-    },
+      choices: rolechoices 
+    }, 
     {
       type: "list",
-      name: "department",
-      message: "Who is this employee's manager?",
-      choices: ["1","2","3",], //!Research how to do this! pull the name from role id, from the manager id.. from the existing list on employee table?
+      name: "manager",
+      message: "Who is this employee's Manager?",
+      choices: mangchoices 
     },
   ]).then(input => {
     var query = `INSERT INTO employee SET ?`
       connection.query(query, {
         first_name: input.employeeFname,
         last_name: input.employeeLname,
-        // role_id:input.//!
-        // manager_id: input.//!
+        role_id:input.role
       },
       function (err, res) {
         if (err) console.log(err);
@@ -192,7 +204,9 @@ function addEmployee(){
         console.log("New Employee Created!");
         startprogram();     
         });
+      })
   })
+})
 }
 
 function updateEmployee(){
