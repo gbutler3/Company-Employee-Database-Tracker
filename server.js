@@ -26,8 +26,8 @@ function startprogram(){
       "Add an Employee", 
       "Update Employee Role"
       //BONUS "Update employee managers", "View employees by manager", "View employees by department", "Delete departments, roles, and employees" 
-    ]
-  },
+      ]
+    },
   ]).then(choices => {
     switch (choices.ViewChoice){
       case "View All Departments":
@@ -86,14 +86,62 @@ function allEmployees(){
 };
 
 function addDepartment(){
-  startprogram();
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What department would you like to add?"
+    },
+  ]).then(input => {
+    var query = `INSERT INTO department SET ?`
+      connection.query(query, {
+        name: input.name,
+        id: input.id
+      },
+      function (err, res) {
+        if (err) console.log(err);
 
-};
+        console.table(res);
+        console.log("Department Inserted!");
+        startprogram();     
+        });
+  })
+}
 
 function addRole() {
-  startprogram();
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "rolename",
+      message: "What role would you like to add?"
+    },
+    {
+      type: "input",
+      name: "salary",
+      message: "What is the salary for this role?"
+    },
+    {
+      type: "list",
+      name: "department",
+      message: "What department will this role be in?",
+      choices: ["1","2","3",], //!Research how to do this! pull the departments from the existing list
+    },
+  ]).then(input => {
+    var query = `INSERT INTO role SET ?`
+      connection.query(query, {
+        title: input.rolename,
+        salary: input.salary,
+        department_id:input.department
+      },
+      function (err, res) {
+        if (err) console.log(err);
 
-};
+        console.table(res);
+        console.log("Department Inserted!");
+        startprogram();     
+        });
+  })
+}
 
 function addEmployee(){
   startprogram();
