@@ -16,6 +16,11 @@ FROM employee;
 -- or 
 SELECT * FROM employee;
 
+SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary
+FROM employee  
+INNER JOIN role ON employee.role_id = role.id  
+INNER JOIN department ON role.department_id = department.id;
+
 -- Add department
 INSERT INTO department SET ?
 
