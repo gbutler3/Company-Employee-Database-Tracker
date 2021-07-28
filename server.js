@@ -76,7 +76,7 @@ function allRoles(){
 };
 
 function allEmployees(){
-  var query = `SELECT id, first_name, last_name FROM employee`;
+  var query = `SELECT id, first_name, last_name FROM employee;`;
   connection.query(query, function(err, data){
     if (err) throw err;
     console.table(data)
@@ -107,7 +107,6 @@ function addDepartment(){
         });
   })
 }
-
 
 function addRole() {
   var query = `SELECT id, name FROM department;`
@@ -149,8 +148,7 @@ function addRole() {
           startprogram();     
           });
     })
-  })
-   
+  }) 
 }
 
 function addEmployee(){
@@ -165,7 +163,7 @@ var query2 = `SELECT first_name, last_name FROM employee;`
 connection.query(query2, function(err,data){
   if (err) console.log(err);
   var mangchoices = data.map(item =>{
-    return {name: item.first_name,value: item.id}
+    return {name: item.first_name, name:item.last_name, value: item.id}
   })
   inquirer.prompt([
     {
@@ -207,11 +205,50 @@ connection.query(query2, function(err,data){
       })
   })
 })
-}
+};
 
 function updateEmployee(){
-  startprogram();
+  var query = `SELECT id, first_name, last_name FROM employee;`;
+  connection.query(query, function(err, data){
+    if (err) console.log(err);
+    var choices = data.map(item => {
+      return {name: item.first_name, name:item.last_name,value: item.id}
+      })
 
-};
+  var query = `SELECT id, title FROM role;`
+  connection.query(query, function(err, data){
+    if (err) console.log(err);
+    var choices2 = data.map(item => {
+    return {name: item.title,value: item.id}
+  })
+      inquirer.prompt([
+        {
+          type: "list",
+          name: "select name",
+          message: "What employee would you like to update?",
+          choices: choices,
+        },
+        {
+          type: "list",
+          name: "role",
+          message: "What new role will this employee have?",
+          choices: choices2,
+        },
+      ]).then(input =>{
+        var query = `UPDATE employee SET role_id =?  WHERE id = ? `
+        connection.query(query, {
+        role_id:input.role
+      },
+      function (err, res) {
+        if (err) console.log(err);
+
+        console.table(res);
+        console.log("Employee Role Updated!");
+        startprogram();     
+      })
+      }
+      )}
+  )}
+)};
 
 init();
