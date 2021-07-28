@@ -108,39 +108,49 @@ function addDepartment(){
   })
 }
 
-function addRole() {
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "rolename",
-      message: "What role would you like to add?"
-    },
-    {
-      type: "input",
-      name: "salary",
-      message: "What is the salary for this role?"
-    },
-    {
-      type: "list",
-      name: "department",
-      message: "What department will this role be in?",
-      choices: ["1","2","3",], //!Research how to do this! pull the departments from the existing list
-    },
-  ]).then(input => {
-    var query = `INSERT INTO role SET ?`
-      connection.query(query, {
-        title: input.rolename,
-        salary: input.salary,
-        department_id:input.department
-      },
-      function (err, res) {
-        if (err) console.log(err);
 
-        console.table(res);
-        console.log("New Role Inserted!");
-        startprogram();     
-        });
+function addRole() {
+  var query = `SELECT id, name FROM department;`
+  connection.query(query, function(err, data){
+    if (err) console.log(err);
+    var choices = data.map(item => {
+      return {name: item.name,value: item.id}
+    })
+    // console.log(data.name)
+    inquirer.prompt([
+      {
+        type: "input",
+        name: "rolename",
+        message: "What role would you like to add?"
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary for this role?"
+      },
+      {
+        type: "list",
+        name: "department",
+        message: "What department will this role be in?",
+        choices: choices,
+      },
+    ]).then(input => {
+      var query = `INSERT INTO role SET ?`
+        connection.query(query, {
+          title: input.rolename,
+          salary: input.salary,
+          department_id:input.department
+        },
+        function (err, res) {
+          if (err) console.log(err);
+  
+          console.table(res);
+          console.log("New Role Inserted!");
+          startprogram();     
+          });
+    })
   })
+   
 }
 
 function addEmployee(){
@@ -172,8 +182,8 @@ function addEmployee(){
       connection.query(query, {
         first_name: input.employeeFname,
         last_name: input.employeeLname,
-        role_id:input.//!
-        manager_id: input.//!
+        // role_id:input.//!
+        // manager_id: input.//!
       },
       function (err, res) {
         if (err) console.log(err);
