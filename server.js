@@ -102,7 +102,7 @@ function addDepartment(){
         if (err) console.log(err);
 
         console.table(res);
-        console.log("Department Inserted!");
+        console.log("New Department Created!");
         startprogram();     
         });
   })
@@ -137,16 +137,53 @@ function addRole() {
         if (err) console.log(err);
 
         console.table(res);
-        console.log("Department Inserted!");
+        console.log("New Role Inserted!");
         startprogram();     
         });
   })
 }
 
 function addEmployee(){
-  startprogram();
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "employeeFname",
+      message: "What is the employee's first name?"
+    },
+    {
+      type: "input",
+      name: "employeeLname",
+      message: "What is the employee's last name?"
+    },
+    {
+      type: "list",
+      name: "department",
+      message: "What is this employee's role?",
+      choices: ["1","2","3",], //!Research how to do this! pull the role title from the existing list on role table
+    },
+    {
+      type: "list",
+      name: "department",
+      message: "Who is this employee's manager?",
+      choices: ["1","2","3",], //!Research how to do this! pull the name from role id, from the manager id.. from the existing list on employee table?
+    },
+  ]).then(input => {
+    var query = `INSERT INTO employee SET ?`
+      connection.query(query, {
+        first_name: input.employeeFname,
+        last_name: input.employeeLname,
+        role_id:input.//!
+        manager_id: input.//!
+      },
+      function (err, res) {
+        if (err) console.log(err);
 
-};
+        console.table(res);
+        console.log("New Employee Created!");
+        startprogram();     
+        });
+  })
+}
 
 function updateEmployee(){
   startprogram();
