@@ -262,5 +262,4 @@ connection.query(query2, function(err,data){
 //   })
 // };
 
-
 init();

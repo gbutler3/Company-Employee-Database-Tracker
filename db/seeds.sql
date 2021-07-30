@@ -40,4 +40,3 @@ VALUES  ("Michael", "Scott", 1, null), -- management --
         ("Roy", "Anderson", 9, 14), -- warehouse --
         ("Val", "Johnson", 9, 14); -- warehouse --
 
-

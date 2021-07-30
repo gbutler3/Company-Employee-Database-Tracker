@@ -32,3 +32,4 @@ INSERT INTO department SET ?
 -- Add Role
 INSERT INTO role SET?
 VALUES ("WHATEVER YOU WANT", #####, #)
+
