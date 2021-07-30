@@ -24,19 +24,9 @@ A command line application which users can manage a company's employee database 
 
 ## WalkThrough
 
-<!-- Click the link to the following video for an example of the application being used from the command line: -->
+Click the link to the following video for an example of the application being used from the command line:
 
-Coming Soon! <!-- ![Demo of application](#) -->
-
-<!-- ### Walkthrough Video: 27%
-
-* A walkthrough video that demonstrates the functionality of the employee tracker must be submitted, and a link to the video should be included in your README file.
-
-* The walkthrough video must show all of the technical acceptance criteria being met.
-
-* The walkthrough video must demonstrate how a user would invoke the application from the command line.
-
-* The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria. -->
+[ Demo!](https://drive.google.com/file/d/1hCM_2f3Pm1eOjfHKuDEPyN0VEiSMdaGV/view?usp=sharing)
 
 ## License
 
