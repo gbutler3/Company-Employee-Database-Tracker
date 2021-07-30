@@ -15,7 +15,7 @@ INSERT INTO role (title, salary, department_id)
 VALUES  ("Regional Manager", 150000, 1),
         ("Receptionist", 85000, 2),
         ("Sales Lead",130000, 3),
-        ("Sales Representative",110000, 4),
+        ("Sales Representative",110000, 3),
         ("Accountant", 85000, 4),
         ("HR Specialist", 60000, 5),
         ("CX Representative", 65000, 6),

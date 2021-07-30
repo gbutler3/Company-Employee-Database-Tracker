@@ -23,8 +23,9 @@ function startprogram(){
       "View all Employees", 
       "Add Department", 
       "Add Role", 
-      "Add an Employee", 
-      "Update Employee Role"
+      "Add an Employee",
+      "Exit", 
+      // "Update Employee Role" //! not working properly
       //BONUS "Update employee managers", "View employees by manager", "View employees by department", "Delete departments, roles, and employees" 
       ]
     },
@@ -34,23 +35,27 @@ function startprogram(){
         console.log("Viewing all Departments:")
         allDepartments();
         break;
+      case "Add Department":
+      addDepartment();
+      break;
       case "View All Roles":
         console.log("Viewing all roles:")
         allRoles();
       break;
-      case "View all Employees":
-        allEmployees();
-        break;
-      case "Add Department":
-        addDepartment();
-        break;
       case "Add Role":
         addRole();
+        break;
+      case "View all Employees":
+        console.log("Viewing all Employees:")
+        allEmployees();
         break;
       case "Add an Employee":
         addEmployee();
         break;
-      case "Update Employee Role":
+      case "Exit":
+        console.log ("Good Bye!")
+        break;  
+      case "Update Employee Role": 
         updateEmployee();
         break;
     }
@@ -67,7 +72,9 @@ function allDepartments(){
 };
 
 function allRoles(){
-  var query = `SELECT id, title, salary FROM role;`;
+  var query =`SELECT role.id, role.title, role.salary, department.name AS department
+              FROM role
+              LEFT JOIN department ON department_id = department.id;`;
   connection.query(query,function(err,data){
     if (err) throw err;
     console.table(data)
@@ -152,7 +159,7 @@ function addRole() {
           });
     })
   }) 
-}
+};
 
 function addEmployee(){
 var query = `SELECT id, title FROM role;`
@@ -210,48 +217,50 @@ connection.query(query2, function(err,data){
 })
 };
 
-function updateEmployee(){
-  var query = `SELECT id, first_name, last_name FROM employee;`;
-  connection.query(query, function(err, data){
-    if (err) console.log(err);
-    var choices = data.map(item => {
-      return {name: item.first_name, name:item.last_name,value: item.id}
-      })
+//!not working properly
+// function updateEmployee(){
+//   var query = `SELECT id, first_name, last_name FROM employee;`;
+//   connection.query(query, function(err, data){
+//     if (err) console.log(err);
+//     var choices = data.map(item => {
+//       return {name: item.first_name, name:item.last_name,value: item.id}
+//       })
 
-  var query = `SELECT id, title FROM role;`
-  connection.query(query, function(err, data){
-    if (err) console.log(err);
-    var choices2 = data.map(item => {
-    return {name: item.title,value: item.id}
-  })
-      inquirer.prompt([
-        {
-          type: "list",
-          name: "select name",
-          message: "What employee would you like to update?",
-          choices: choices,
-        },
-        {
-          type: "list",
-          name: "role",
-          message: "What new role will this employee have?",
-          choices: choices2,
-        },
-      ]).then(input =>{
-        var query = `UPDATE employee SET role_id =?  WHERE id = ? `
-        connection.query(query, {
-        role_id:input.role
-      },
-      function (err, res) {
-        if (err) console.log(err);
+//   var query = `SELECT id, title FROM role;`
+//   connection.query(query, function(err, data){
+//     if (err) console.log(err);
+//     var choices2 = data.map(item => {
+//     return {name: item.title,value: item.id}
+//   })
+//       inquirer.prompt([
+//         {
+//           type: "list",
+//           name: "select name",
+//           message: "What employee would you like to update?",
+//           choices: choices,
+//         },
+//         {
+//           type: "list",
+//           name: "role",
+//           message: "What new role will this employee have?",
+//           choices: choices2,
+//         },
+//       ]).then(input =>{
+//         var query = `UPDATE employee SET role_id = ? WHERE employee.id = ? `
+//         connection.query(query, {
+//         role_id:input.role
+//       },
+//       function (err, res) {
+//         if (err) console.log(err);
 
-        console.table(res);
-        console.log("Employee Role Updated!");
-        startprogram();     
-      })
-      }
-      )}
-  )}
-)};
+//         console.table(res);
+//         console.log("Employee Role Updated!");
+//         startprogram();     
+//       })
+//       })
+//     })
+//   })
+// };
+
 
 init();
